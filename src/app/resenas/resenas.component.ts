@@ -1,47 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReviewRegisterService } from './resena-service';
 import { ReviewRegister } from './resenas-model';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-  FormsModule,
-} from '@angular/forms';
-import { MatError, MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { MatRadioModule } from '@angular/material/radio';
-import { CommonModule } from '@angular/common';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatButtonModule } from '@angular/material/button';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
 
 
 @Component({
   selector: 'app-resenas',
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    MatError,
-    CommonModule,
-  ],
   templateUrl: './resenas.component.html',
-  styleUrls: ['./resenas.component.scss'],
+  styleUrls: ['./resenas.component.scss',],
 })
-export class ResenasComponent {
+export class ResenasComponent implements OnInit {
   showLoading = false;
   disable = false;
   message: any;
@@ -50,6 +21,8 @@ export class ResenasComponent {
   cssUrl: string = '';
 
   reviewbookForm: FormGroup;
+  reviews: ReviewRegister[] = [];
+  editReview: Partial<ReviewRegister> = {};
 
   constructor(
     private router: Router,
@@ -60,6 +33,7 @@ export class ResenasComponent {
   }
 
   ngOnInit() {
+    this.getAllReviews();
     if (this.product == 'PE') {
       console.log('Pago Efectivo');
     } else {
@@ -70,29 +44,42 @@ export class ResenasComponent {
 
   createReviewBookForm(): FormGroup {
     return this.fb.group({
-      tipo_resena: [null, [Validators.required]],
-      fecha_resena: [null, [Validators.required]],
-      nombres: [null, [Validators.required, Validators.pattern('[a-zA-Z ]+')]],
-      apellidos: [null, [Validators.required]],
-      correo: [null, [Validators.required, Validators.email]],
-      telefono: [null, [Validators.required, Validators.minLength(7)]],
-      pais: [null, [Validators.required]],
-      ciudad: [null, [Validators.required]],
-      direccion: [null, [Validators.required]],
-      tipo_identificacion: [null, [Validators.required]],
-      numero_identificacion: [null, [Validators.required]],
-      detalle_resena: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(6)]],
+      name: [null, [Validators.required]],
+      role: [null, [Validators.required]],
+      avatar: [null, [Validators.required]],
     });
   }
 
-  returnMain(): void {
-    this.router.navigate(['/Resenas/review/main']);
+  getAllReviews(): void {
+    this.reviewRegisterService.getAllReviews().subscribe((data: ReviewRegister[]) => {
+      this.reviews = data;
+    });
   }
 
-  public saveReview() {
+  addReview(): void {
     if (this.reviewbookForm.valid) {
       const reviewData = new ReviewRegister(this.reviewbookForm.getRawValue());
       this.reviewRegisterService.addReviewbook(reviewData);
+    } else {
+      console.log('Formulario no válido');
+    }
+  }
+
+  updateReview(id: number): void {
+    if (this.reviewbookForm.valid) {
+      const reviewData = new ReviewRegister(this.reviewbookForm.getRawValue());
+      this.reviewRegisterService.updateReview(id, reviewData);
+    } else {
+      console.log('Formulario no válido');
+    }
+  }
+
+  partialUpdateReview(id: number): void {
+    if (this.reviewbookForm.valid) {
+      const partialReviewData = this.reviewbookForm.getRawValue();
+      this.reviewRegisterService.partialUpdateReview(id, partialReviewData);
     } else {
       console.log('Formulario no válido');
     }
@@ -105,15 +92,22 @@ export class ResenasComponent {
         : `/assets/styles/stylesSY.scss`;
   }
 
+  returnMain(): void {
+    this.router.navigate(['/Resenas/review/main']);
+  }
+
   ReturnIndex(): void {
     this.router.navigate(['']);
   }
+
   Gotoproducts(): void {
     this.router.navigate(['/productos']);
   }
+
   Gotoabout(): void {
     this.router.navigate(['/quienes-somos']);
   }
+
   Gotoreview(): void {
     this.router.navigate(['/resenas']);
   }
