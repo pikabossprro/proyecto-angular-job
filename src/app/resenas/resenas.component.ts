@@ -1,14 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReviewRegisterService } from './resena-service';
+import { ReviewRegisterService } from './resenas.service';
 import { ReviewRegister } from './resenas-model';
+<<<<<<< HEAD
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
+=======
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  FormsModule,
+} from '@angular/forms';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
+import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+>>>>>>> aeb9477ce03fd4c3a98ac35c50cf0e12b5e64837
 
 
 @Component({
   selector: 'app-resenas',
+<<<<<<< HEAD
+=======
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatError,
+    CommonModule,
+    HttpClientModule
+  ],
+>>>>>>> aeb9477ce03fd4c3a98ac35c50cf0e12b5e64837
   templateUrl: './resenas.component.html',
   styleUrls: ['./resenas.component.scss',],
 })
