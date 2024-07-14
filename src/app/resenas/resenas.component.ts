@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReviewRegisterService } from './resena-service';
+import { ReviewRegisterService } from './resenas.service';
 import { ReviewRegister } from './resenas-model';
 import {
   FormBuilder,
@@ -17,8 +17,8 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -37,6 +37,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     MatError,
     CommonModule,
+    HttpClientModule
   ],
   templateUrl: './resenas.component.html',
   styleUrls: ['./resenas.component.scss'],
