@@ -12,15 +12,15 @@ export class ResenasComponent {
 
   constructor(private router: Router) {}
 
-  submitReview(): void {
-    // Lógica para enviar la reseña aquí
-
+  submitReview(event: Event): void {
+    event.preventDefault();
+    
     // Mostrar alerta utilizando SweetAlert2
     Swal.fire({
       icon: 'success',
       title: '¡Reseña enviada!',
       showConfirmButton: false,
-      timer: 30000 // Duración en milisegundos (3 segundos)
+      timer: 3000 // Duración en milisegundos (3 segundos)
     });
 
     // Mostrar la alerta en el componente
@@ -29,7 +29,7 @@ export class ResenasComponent {
     // Ocultar la alerta después de 3 segundos
     setTimeout(() => {
       this.showAlert = false;
-    }, 30000);
+    }, 3000);
   }
 
   returnIndex(): void {

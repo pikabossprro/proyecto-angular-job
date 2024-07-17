@@ -565,69 +565,87 @@ h1, h2, h3 {
 
           // css de parrafo 
           /* Global Styles */
+/* Global Styles */
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-kerning: auto;
-  }
-  
-  html {
-    font-size: 10pt;
-    line-height: 1.4;
-    font-weight: 400;
-    font-family: 'Source Sans Pro', 'Open Sans', Roboto, 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Myriad Pro', 'Segoe UI', Myriad, Helvetica, 'Lucida Grande', 'DejaVu Sans Condensed', 'Liberation Sans', 'Nimbus Sans L', Tahoma, Geneva, Arial, sans-serif;
-    -webkit-text-size-adjust: 100%;
-  }
-  
-  body {
-    margin: 0;
-    background: #eee;
-  }
-  
-  /* Article Styles */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: auto;
+}
+
+html {
+  font-size: 10pt;
+  line-height: 1.4;
+  font-weight: 400;
+  font-family: 'Source Sans Pro', 'Open Sans', Roboto, 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Myriad Pro', 'Segoe UI', Myriad, Helvetica, 'Lucida Grande', 'DejaVu Sans Condensed', 'Liberation Sans', 'Nimbus Sans L', Tahoma, Geneva, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: #eee;
+}
+
+/* Ensures parent container takes full width */
+.parent-container {
+  width: 100%;
+  max-width: 100%;
+  display: flex; 
+  justify-content: center; 
+}
+
+/* Ensures section.content takes full width */
+section.content {
+  width: 100%;
+  max-width: 100%;
+  padding: 20px; /* Adjust padding as needed */
+  box-sizing: border-box; 
+}
+
+/* Article Styles */
+article {
+  margin: 5em auto;
+  padding: 2em;
+  font-size: 140%;
+  max-width: 800px;
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 8px 30px;
+  border-radius: 10px;
+}
+
+article h1 {
+  font-weight: 700;
+  font-size: 200%;
+  margin-bottom: 0.5em;
+  text-align: center;
+  color: #333;
+}
+
+article p {
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+article p + p {
+  margin-top: 1em;
+}
+
+/* Media Queries */
+@media (min-width: 500px) {
   article {
-    margin: 5em auto;
-    padding: 2em;
-    font-size: 140%;
-    max-width: 800px;
-    background: white;
-    box-shadow: rgba(0, 0, 0, 0.05) 0 8px 30px;
-    border-radius: 10px;
-  }
-  
-  article h1 {
-    font-weight: 700;
-    font-size: 200%;
-    margin-bottom: 0.5em;
-    text-align: center;
-    color: #333;
-  }
-  
-  article p {
-    margin: 0;
-    color: #555;
-    line-height: 1.6;
-  }
-  
-  article p + p {
-    margin-top: 1em;
-  }
-  
-  /* Media Queries */
-  @media (min-width: 500px) {
-    article {
       margin: 3.5em auto;
       padding: 3em;
-    }
   }
-  
-  @media (min-width: 800px) {
-    article {
+}
+
+@media (min-width: 800px) {
+  article {
       margin: 3.5em auto;
-    }
   }
+}
+
   
