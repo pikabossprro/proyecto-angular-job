@@ -1,33 +1,51 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ReviewRegister } from './resenas-model';
+import Swal from "sweetalert2"
+import { UnsubscribeOnDestroyAdapter } from '../shared/sub/UnsubscribeOnDestroyAdapter';
+import { environment } from '../environments/environments.developments';
 import { Observable } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class ResenaRegisterService extends UnsubscribeOnDestroyAdapter {
 
-  private baseUrl: string = 'https://jsonplaceholder.typicode.com';
+ private readonly API_URL = `${environment.apiURL}/products`
 
-  constructor(private http: HttpClient) { }
-
-  getReseñas(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/posts`);
+ constructor(private httpClient: HttpClient) {
+  super()
+ }
+ 
+  addresena(resena: ReviewRegister): void{
+    this.httpClient.post<any>(this.API_URL, resena)
+    .subscribe({
+      next: (data)=>{
+        Swal.fire({
+          icon: "success",
+          title: "Reseña Generada",
+          text: `Se genero La Reseña con id# ${data.id}`,
+        }).then(function(){
+          window.location.reload();
+        })
+      },
+      error: (err: HttpErrorResponse) =>{
+          console.log(err.name + ' ' + err.message);
+          if(err.status=== 403){
+            Swal.fire({
+              icon: "error",
+              title: "Error de solicitud",
+              text: `Hubo un problema con la solicitud. Por favor, verifica los datos`,
+            })
+          }
+      },
+    })
   }
-
-  getReseña(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/posts/${id}`);
+  getResena(id: number): Observable<ReviewRegister> {
+    return this.httpClient.get<ReviewRegister>(`${this.API_URL}/${id}`);
   }
-
-  createReseña(reseña: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/posts`, reseña);
-  }
-
-  updateReseña(id: number, reseña: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/posts/${id}`, reseña);
-  }
-
-  deleteReseña(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/posts/${id}`);
+  
+  updateResena(id: number, resena: ReviewRegister): Observable<ReviewRegister> {
+    return this.httpClient.put<ReviewRegister>(`${this.API_URL}/${id}`, resena);
   }
 }
+

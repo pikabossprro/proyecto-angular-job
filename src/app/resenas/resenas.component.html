@@ -14,34 +14,124 @@
       <li class="slider"></li>
     </ul>
     <br> <br><br><br>
-      <h1>Deja tu reseña</h1>
+    <div class="page-overlay-wrapper" *ngIf="showLoading">
+      <div class="bee-spinner"></div>
+    </div>
     
-      <div class="max-w-lg mx-auto mt-6">
-        <form (submit)="submitReview($event)" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <label for="nombre" class="block text-gray-700 font-bold mb-2">Nombre:</label>
-          <input type="text" id="nombre" name="nombre" required
-                 class="w-full px-3 py-2 mb-3 border rounded shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    <form [formGroup]="resenaForm" (ngSubmit)="saveResena()">
+        <mat-card class="claim-card">
+          <mat-card-content>
+            
+              <h1><strong> Dejanos tu reseña</strong></h1>
+            
+          
+          </mat-card-content>
+        </mat-card>
+      <mat-card class="claim-card">
+        <mat-card-header>
+          <mat-card-title>Información del Cliente</mat-card-title>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+          <p>Nombre del Cliente</p>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Nombres</mat-label>
+                <input matInput placeholder="Nombres" formControlName="title">
+                <mat-error *ngIf="resenaForm.controls['title'].hasError('required')">
+                  El nombre del cliente es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <p>¿cuanto recomiendas thx home a un amigo?</p>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>calificacion del 1-5</mat-label>
+                <input matInput placeholder="precio" formControlName="price">
+                <mat-error *ngIf="resenaForm.controls['price'].hasError('required')">
+                 La recomendacion es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <p>califica tu experiencia de nuestra pagina web</p>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>calificacion del 1-5</mat-label>
+                <textarea matInput placeholder="Id Categoria" formControlName="categoryId"></textarea>
+                <mat-error *ngIf="resenaForm.controls['categoryId'].hasError('required')">
+                  recomendacion es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="claim-card">
+        <mat-card-header>
+          <mat-card-title>Dejanos un comentario</mat-card-title>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>escribe tu experiencia</mat-label>
+                <textarea matInput placeholder="Descripción" formControlName="description"></textarea>
+                <mat-error *ngIf="resenaForm.controls['description'].hasError('required')">
+                  La descripción de la experiencia es <strong>requerida</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button class ="btn-space" mat-raised-button color="primary" [disabled]="!resenaForm.valid || disable">Enviar</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+    <div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
+
+
+    <br><br><br><br> <br><br><br> <br><br>
+
+    <div class="container">
+      <h2>Consulta tu Reseña</h2>
     
-          <label for="resena" class="block text-gray-700 font-bold mb-2">Reseña:</label>
-          <textarea id="resena" name="resena" rows="4" required
-                    class="w-full px-3 py-2 mb-3 border rounded shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
-    <br><br>
-          <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Enviar
-          </button>
-        </form>
+      <mat-form-field appearance="outline">
+        <mat-label>ID de la Reseña</mat-label>
+        <input matInput [(ngModel)]="resenaId" placeholder="Ingresa el ID" />
+      </mat-form-field>
     
-        <!-- Alerta de reseña enviada -->
-        <div *ngIf="showAlert" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mt-4" role="alert">
-          <p class="font-bold">¡Reseña enviada!</p>
-        </div>
+      <button (click)="getResena(resenaId)">Obtener Reseña</button>
+    
+      <div *ngIf="resena">
+        <h3>Nombre: {{ resena.title }}</h3>
+        <p>Experiencia: {{ resena.description }}</p>
+        <p>Calificación: {{ resena.price }}</p>
       </div>
+    </div>
+
+    
+    <br><br><br><br> <br><br><br> <br><br>
+    <div class="container">
+      <h2>Actualiza tu Reseña</h2>
+    
+      <mat-form-field appearance="outline">
+        <mat-label>Nuevo Título</mat-label>
+        <input matInput [(ngModel)]="resenaForm.value.title" placeholder="Ingresa nuevo título" />
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline">
+        <mat-label>Nueva Calificación</mat-label>
+        <input matInput [(ngModel)]="resenaForm.value.price" placeholder="Ingresa nueva calificación" />
+      </mat-form-field>
+    
+      <button (click)="updateResena(resenaId)">Actualizar Reseña</button>
+    </div>
     
     
-
-
-
-      <br><br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br>
+      <br><br><br><br> <br><br><br> <br><br>
      <!-- footer aquí krnal -->
      <div class="pg-footer">
         <footer class="footer">

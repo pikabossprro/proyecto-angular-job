@@ -1,17 +1,16 @@
 export class ReviewRegister {
-  id: number;
-  email: string;
-  password: string;
-  name: string;
-  role: string;
-  avatar: string;
+  title: string;
+  price: number;
+  description: string;
+  categoryId: number;
+  images: string[];
 
-  constructor(reviewRegister: Partial<ReviewRegister> = {}) {
-    this.id = reviewRegister.id || 0;
-    this.email = reviewRegister.email || '';
-    this.password = reviewRegister.password || '';
-    this.name = reviewRegister.name || '';
-    this.role = reviewRegister.role || 'customer';
-    this.avatar = reviewRegister.avatar || '';
+  constructor(reviewRegister: ReviewRegister) {
+    this.title= reviewRegister.title || "";
+    this.price= reviewRegister.price ;
+    this.description = reviewRegister.description ;
+    this.categoryId = reviewRegister.categoryId ;
+    this.images = reviewRegister.images || ["https://placeimg.com/640/480/any"];
+    
   }
 }
