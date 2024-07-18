@@ -47,7 +47,7 @@
             <div class="col">
               <mat-form-field class="full-width" appearance="outline">
                 <mat-label>calificacion del 1-5</mat-label>
-                <input matInput placeholder="precio" formControlName="price">
+                <input matInput placeholder="calificacion" formControlName="price">
                 <mat-error *ngIf="resenaForm.controls['price'].hasError('required')">
                  La recomendacion es <strong>requerido</strong>
                 </mat-error>
@@ -58,7 +58,7 @@
             <div class="col">
               <mat-form-field class="full-width" appearance="outline">
                 <mat-label>calificacion del 1-5</mat-label>
-                <textarea matInput placeholder="Id Categoria" formControlName="categoryId"></textarea>
+                <textarea matInput placeholder="califiacion" formControlName="categoryId"></textarea>
                 <mat-error *ngIf="resenaForm.controls['categoryId'].hasError('required')">
                   recomendacion es <strong>requerido</strong>
                 </mat-error>
