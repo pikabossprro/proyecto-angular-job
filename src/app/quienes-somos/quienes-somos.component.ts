@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-quienes-somos',
   standalone: true,
@@ -24,5 +25,8 @@ export class QuienesSomosComponent {
   }
   Gotoreview(): void {
     this.router.navigate(['/resenas']);
+  }
+  Gotopedido(): void {
+    this.router.navigate(['/pedidos']);
   }
 }

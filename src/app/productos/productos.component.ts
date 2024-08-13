@@ -26,6 +26,9 @@ export class ProductosComponent {
   Gotoreview(): void {
     this.router.navigate(['/resenas']);
   }
+  Gotopedido(): void {
+    this.router.navigate(['/pedidos']);
+  }
 
   productos = [
     {

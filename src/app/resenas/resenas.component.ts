@@ -87,7 +87,7 @@ export class ResenasComponent {
   }
 
   getResena(): void {
-    const resenaIdNumber = Number(this.resenaId); // Convertir a número
+    const resenaIdNumber = Number(this.resenaId);
     this.resenaRegisterService.getResena(resenaIdNumber).subscribe(
       (resena: any) => {
         this.resena = resena;
@@ -148,5 +148,8 @@ export class ResenasComponent {
 
   gotoReviews(): void {
     this.router.navigate(['/resenas']);
+  }
+  Gotopedido(): void {
+    this.router.navigate(['/pedidos']);
   }
 }

@@ -11,6 +11,7 @@
       <li><a (click)="gotoProducts()">Productos</a></li>
       <li><a (click)="gotoAbout()">Quienes Somos</a></li>
       <li><a (click)="gotoReviews()">Reseñas</a></li>
+      <li><a (click)=" Gotopedido()">pedidos</a></li>
       <li class="slider"></li>
     </ul>
     <br> <br><br><br>
@@ -95,6 +96,9 @@
     <br><br><br><br> <br><br><br> <br><br>
     <form (ngSubmit)="getResena()">
       <div class="row">
+        <div class="col-md-9 centro" style="float:none;margin:auto;">
+          <h1><strong>Consultar Reseña</strong></h1>
+        </div>
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Id del Producto</mat-label>
@@ -123,7 +127,7 @@
             <div class="row">
               
               <div class="col-md-9 centro" style="float:none;margin:auto;">
-                <h1><strong>Detalle de la Reseña</strong></h1>
+                <h1><strong>Actualizar Reseña</strong></h1>
               </div>
             </div>
           </mat-card-content>
