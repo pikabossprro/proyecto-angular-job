@@ -4,7 +4,7 @@ import { ReviewRegister } from './resenas-model';
 import Swal from "sweetalert2"
 import { UnsubscribeOnDestroyAdapter } from '../shared/sub/UnsubscribeOnDestroyAdapter';
 import { environment } from '../environments/environments.developments';
-import { Observable } from 'rxjs';
+import {  catchError, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -45,7 +45,21 @@ export class ResenaRegisterService extends UnsubscribeOnDestroyAdapter {
   }
   
   updateResena(id: number, resena: ReviewRegister): Observable<ReviewRegister> {
-    return this.httpClient.put<ReviewRegister>(`${this.API_URL}/${id}`, resena);
+    return this.httpClient.put<ReviewRegister>(`${this.API_URL}/${id}`, resena)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.log(err.name + ' ' + err.message);
+          if (err.status === 403) {
+            Swal.fire({
+              icon: "error",
+              title: "Error de solicitud",
+              text: `Hubo un problema con la solicitud. Por favor, verifica los datos`,
+            });
+          }
+          throw err;
+        })
+      );
   }
+  
 }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ReviewRegister } from './resenas-model';
 import { ResenaRegisterService } from './resenas.service';
@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-resenas',
@@ -43,17 +44,15 @@ export class ResenasComponent {
   message: any;
   checked = false;
   hasUnitNumber = false;
-  urlTree: any;
-  product: any = 'PE';
-  countrys = [{ name: 'Perú', abbreviation: 'PE' }];
-  cssUrl: string = '';
+  
 
-  resena: ReviewRegister;
+  resena: any;
   resenaForm: UntypedFormGroup;
-  resenaId: number = 1; // ID de la reseña por defecto
 
+  resenaId!: string; 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     public resenaRegisterService: ResenaRegisterService,
     private fb: UntypedFormBuilder
   ) {
@@ -62,13 +61,9 @@ export class ResenasComponent {
     this.resenaForm = this.createResenaForm();
   }
 
-  ngOnInit() {
-    if (this.product == 'PE') {
-      console.log('Pago Efectivo');
-    } else {
-      console.log('Syndeo');
-      this.changeStyle();
-    }
+  ngOnInit():void{
+    this.resenaId = this.route.snapshot.paramMap.get('idProduct') ?? '';
+    this.getResena();
   }
 
   createResenaForm(): UntypedFormGroup {
@@ -91,79 +86,54 @@ export class ResenasComponent {
     }
   }
 
-  getResena(id: number): void {
-    this.resenaRegisterService.getResena(id).subscribe({
-      next: (data: ReviewRegister) => {
-        this.resena = data;
-        this.resenaForm.patchValue(data); // Cargar datos en el formulario
-        console.log('Reseña obtenida:', data);
+  getResena(): void {
+    const resenaIdNumber = Number(this.resenaId); // Convertir a número
+    this.resenaRegisterService.getResena(resenaIdNumber).subscribe(
+      (resena: any) => {
+        this.resena = resena;
+        this.resenaForm.patchValue({
+          title: this.resena.title,
+          price: this.resena.price,
+          description: this.resena.description,
+          categoryId: this.resena.category.id,
+          images: ["https://placeimg.com/640/480/any"]
+        });
       },
-      error: (err: HttpErrorResponse) => {
-        console.log(err.name + ' ' + err.message);
-        if (err.status === 404) {
-          Swal.fire({
-            icon: "error",
-            title: "Reseña no encontrada",
-            text: `No se pudo encontrar la reseña con ID ${id}`,
-          });
-        }
-      },
-    });
-  }
-  updateResena(id: number): void {
-    if (!id) {
-      Swal.fire({
-        icon: "error",
-        title: "ID inválido",
-        text: "Por favor, ingresa un ID válido.",
-      });
-      return;
-    }
+      (error) => {
+        console.error(error);
+        alert('Ocurrió un inconveniente. Por favor, intente registrar más tarde');
+      }
+    ); 
+}
+
   
-    const updateData: ReviewRegister = {
-      title: this.resenaForm.get('title')?.value || '',
-      price: this.resenaForm.get('price')?.value || 0,
-      description: this.resena.description,
-      categoryId: this.resena.categoryId,
-      images: this.resena.images.length ? this.resena.images : ["https://placeimg.com/640/480/any"]
-    };
-  
-    console.log('Datos a enviar:', updateData);
-  
-    this.resenaRegisterService.updateResena(id, updateData).subscribe({
-      next: () => {
+  updateResena(): void {
+    const resenaIdNumber = Number(this.resenaId);
+    this.resenaRegisterService.updateResena(resenaIdNumber, this.resenaForm.value).subscribe(
+      (data: any) => {
         Swal.fire({
           icon: "success",
-          title: "Reseña Actualizada",
-          text: `Se actualizó la reseña con ID# ${id}`,
-        }).then(() => {
+          title: "Reseña actualizada con éxito",
+          text: `Se actualizó el producto con id # ${data.id}`,
+        }).then(function(){
           window.location.reload();
-        });
+        })
       },
-      error: (err: HttpErrorResponse) => {
-        console.error(err);
-        Swal.fire({
-          icon: "error",
-          title: "Error de actualización",
-          text: `Hubo un problema al actualizar la reseña. Verifica los datos.`,
-        });
-      },
-    });
-  }
-  
+      (error) => {
+        console.error(error);
+        alert('Ocurrió un inconveniente. Por favor, intente registrar más tarde');
+      }
+    );
+ }
+ 
+
   
   
   
   
   
 
-  changeStyle() {
-    this.cssUrl =
-      this.cssUrl === `/assets/styles/stylesSY.scss`
-        ? `/assets/styles/stylesPE.scss`
-        : `/assets/styles/stylesSY.scss`;
-  }
-
+ 
   returnIndex(): void {
     this.router.navigate(['']);
   }

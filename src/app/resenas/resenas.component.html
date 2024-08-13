@@ -92,43 +92,125 @@
     </form>
     <div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
 
-
     <br><br><br><br> <br><br><br> <br><br>
-
-    <div class="container">
-      <h2>Consulta tu Reseña</h2>
-    
-      <mat-form-field appearance="outline">
-        <mat-label>ID de la Reseña</mat-label>
-        <input matInput [(ngModel)]="resenaId" placeholder="Ingresa el ID" />
-      </mat-form-field>
-    
-      <button (click)="getResena(resenaId)">Obtener Reseña</button>
-    
-      <div *ngIf="resena">
-        <h3>Nombre: {{ resena.title }}</h3>
-        <p>Experiencia: {{ resena.description }}</p>
-        <p>Calificación: {{ resena.price }}</p>
+    <form (ngSubmit)="getResena()">
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Id del Producto</mat-label>
+            <input matInput placeholder="Id del Producto" [(ngModel)]="resenaId" name="resenaId" type="number"/>
+          </mat-form-field>
+        </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <button class ="btn-space" mat-raised-button color="primary" type="submit">Consultar</button>
+          
+        </div>
+      </div>
+    </form>
+    
+
+    <br><br><br><br> <br><br><br> <br><br>
+
+    <div class="page-overlay-wrapper" *ngIf="showLoading">
+      <div class="bee-spinner"></div>
+    </div>
+    
+    <form [formGroup]="resenaForm" (ngSubmit)="updateResena()">
+        <mat-card class="claim-card">
+          <mat-card-content>
+            <div class="row">
+              
+              <div class="col-md-9 centro" style="float:none;margin:auto;">
+                <h1><strong>Detalle de la Reseña</strong></h1>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        
+        <mat-card class="claim-card">
+          <mat-card-header>
+            <mat-card-title>Información de la Reseña</mat-card-title>
+          </mat-card-header>
+          <br>
+          <mat-card-content>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Título</mat-label>
+                <input matInput placeholder="Título" formControlName="title">
+                <mat-error *ngIf="resenaForm.controls['title'].hasError('required')">
+                  El título es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+    
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Precio</mat-label>
+                <input matInput placeholder="Precio" formControlName="price" type="number">
+                <mat-error *ngIf="resenaForm.controls['price'].hasError('required')">
+                  El precio es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Id Categoría</mat-label>
+                <input matInput type="number" placeholder="Id Categoría" formControlName="categoryId">
+                <mat-error *ngIf="resenaForm.controls['categoryId'].hasError('required')">
+                  El id de la categoría es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+    
+        <mat-card class="claim-card">
+          <mat-card-header>
+            <mat-card-title>Detalle de la Reseña</mat-card-title>
+          </mat-card-header>
+          <br>
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Descripción</mat-label>
+                  <textarea matInput placeholder="Descripción" formControlName="description"></textarea>
+                  <mat-error *ngIf="resenaForm.controls['description'].hasError('required')">
+                    La descripción es <strong>requerida</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+          
+          <mat-card-actions>
+            <button class="btn-space" mat-raised-button color="primary" [disabled]="!resenaForm.valid || disable">Actualizar</button>
+            
+          </mat-card-actions>
+        </mat-card>
+    </form>
+    
+    <div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">
+      {{message.text}}
     </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     
-    <br><br><br><br> <br><br><br> <br><br>
-    <div class="container">
-      <h2>Actualiza tu Reseña</h2>
-    
-      <mat-form-field appearance="outline">
-        <mat-label>Nuevo Título</mat-label>
-        <input matInput [(ngModel)]="resenaForm.value.title" placeholder="Ingresa nuevo título" />
-      </mat-form-field>
-    
-      <mat-form-field appearance="outline">
-        <mat-label>Nueva Calificación</mat-label>
-        <input matInput [(ngModel)]="resenaForm.value.price" placeholder="Ingresa nueva calificación" />
-      </mat-form-field>
-    
-      <button (click)="updateResena(resenaId)">Actualizar Reseña</button>
-    </div>
     
     
       <br><br><br><br> <br><br><br> <br><br>
