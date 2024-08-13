@@ -97,7 +97,7 @@
       <form (ngSubmit)="getPedido()">
         <div class="row">
           <div class="col-md-9 centro" style="float:none;margin:auto;">
-            <h1><strong>Consultar producto</strong></h1>
+            <h1><strong>Consultar Pedido</strong></h1>
           </div>
           <div class="col">
             <mat-form-field class="full-width" appearance="outline">
@@ -113,6 +113,95 @@
           </div>
         </div>
       </form>
+
+      <br><br> <br> <br><br>
+
+      <div class="page-overlay-wrapper" *ngIf="showLoading">
+        <div class="bee-spinner"></div>
+      </div>
+      
+      <form [formGroup]="pedidoForm" (ngSubmit)="updatePedido()">
+          <mat-card class="claim-card">
+            <mat-card-content>
+              <div class="row">
+                
+                <div class="col-md-9 centro" style="float:none;margin:auto;">
+                  <h1><strong>Actualizar Pedido</strong></h1>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          
+          <mat-card class="claim-card">
+            <mat-card-header>
+              <mat-card-title>Información del pedido</mat-card-title>
+            </mat-card-header>
+            <br>
+            <mat-card-content>
+              <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>producto</mat-label>
+                  <input matInput placeholder="Título" formControlName="title">
+                  <mat-error *ngIf="pedidoForm.controls['title'].hasError('required')">
+                    Información del pedido es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+      
+              <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Precio del producto</mat-label>
+                  <input matInput placeholder="Precio" formControlName="price" type="number">
+                  <mat-error *ngIf="pedidoForm.controls['price'].hasError('required')">
+                    El precio es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              
+              <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Id Categoría</mat-label>
+                  <input matInput type="number" placeholder="Id Categoría" formControlName="categoryId">
+                  <mat-error *ngIf="pedidoForm.controls['categoryId'].hasError('required')">
+                    El id de la categoría es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+          </mat-card>
+      
+          <mat-card class="claim-card">
+            <mat-card-header>
+              <mat-card-title>Detalle del Pedido</mat-card-title>
+            </mat-card-header>
+            <br>
+            <mat-card-content>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput placeholder="Descripción" formControlName="description"></textarea>
+                    <mat-error *ngIf="pedidoForm.controls['description'].hasError('required')">
+                      La descripción es <strong>requerida</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-card-content>
+            
+            <mat-card-actions>
+              <button class="btn-space" mat-raised-button color="primary" [disabled]="!pedidoForm.valid || disable">Actualizar</button>
+              
+            </mat-card-actions>
+          </mat-card>
+      </form>
+      
+      <div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">
+        {{message.text}}
+      </div>
+
+
+
 
       <br><br> <br> <br><br>
 

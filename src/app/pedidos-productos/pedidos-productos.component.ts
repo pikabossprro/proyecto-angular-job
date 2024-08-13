@@ -102,6 +102,24 @@ export class PedidosProductosComponent {
       }
     ); 
 }
+updatePedido(): void {
+  const pedidoIdNumber = Number(this.pedidoId);
+  this.PedidoRegisterService.updatePedido(pedidoIdNumber, this.pedidoForm.value).subscribe(
+    (data: any) => {
+      Swal.fire({
+        icon: "success",
+        title: "Pedido actualizado con éxito",
+        text: `Se actualizó el producto con id # ${data.id}`,
+      }).then(function(){
+        window.location.reload();
+      })
+    },
+    (error) => {
+      console.error(error);
+      alert('Ocurrió un inconveniente. Por favor, intente registrar más tarde');
+    }
+  );
+}
 
 
 

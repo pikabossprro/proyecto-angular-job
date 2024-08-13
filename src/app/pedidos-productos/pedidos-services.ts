@@ -44,7 +44,22 @@ export class PedidoRegisterService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.get<PedidoRegister>(`${this.API_URL}/${id}`);
 }
 
-  
+updatePedido(id: number, resena: PedidoRegister): Observable<PedidoRegister> {
+  return this.httpClient.put<PedidoRegister>(`${this.API_URL}/${id}`, resena)
+    .pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.log(err.name + ' ' + err.message);
+        if (err.status === 403) {
+          Swal.fire({
+            icon: "error",
+            title: "Error de solicitud",
+            text: `Hubo un problema con la solicitud. Por favor, verifica los datos`,
+          });
+        }
+        throw err;
+      })
+    );
+}
  
   
 }
