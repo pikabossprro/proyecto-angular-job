@@ -18,17 +18,18 @@
       <div class="page-overlay-wrapper" *ngIf="showLoading">
         <div class="bee-spinner"></div>
       </div>
-      
-      <form [formGroup]="pedidoForm" (ngSubmit)="savePedido()">
-          <mat-card class="claim-card">
-            <mat-card-content>
+      <div class="form-wrapper">
+        <div class="form-container">
+          <form [formGroup]="pedidoForm" (ngSubmit)="savePedido()">
+            <mat-card class="pedido-card">
+              <mat-card-content>
               
                 <h1><strong>crea stock para la tienda</strong></h1>
               
             
             </mat-card-content>
           </mat-card>
-        <mat-card class="claim-card">
+        <mat-card class="pedido-card">
           <mat-card-header>
             <mat-card-title>Información del Pedido</mat-card-title>
           </mat-card-header>
@@ -68,7 +69,7 @@
             </div>
           </mat-card-content>
         </mat-card>
-        <mat-card class="claim-card">
+        <mat-card class="pedido-card">
           <mat-card-header>
             <mat-card-title>ingresar descripción del producto</mat-card-title>
           </mat-card-header>
@@ -94,6 +95,7 @@
       <div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
   
       <br><br><br><br> <br><br><br> <br><br>
+      <div class="form-container"></div>
       <form (ngSubmit)="getPedido()">
         <div class="row">
           <div class="col-md-9 centro" style="float:none;margin:auto;">
@@ -113,7 +115,7 @@
           </div>
         </div>
       </form>
-
+      </div>
       <br><br> <br> <br><br>
 
       <div class="page-overlay-wrapper" *ngIf="showLoading">
@@ -121,7 +123,7 @@
       </div>
       
       <form [formGroup]="pedidoForm" (ngSubmit)="updatePedido()">
-          <mat-card class="claim-card">
+          <mat-card class="pedido-card">
             <mat-card-content>
               <div class="row">
                 
@@ -132,7 +134,7 @@
             </mat-card-content>
           </mat-card>
           
-          <mat-card class="claim-card">
+          <mat-card class="pedido-card">
             <mat-card-header>
               <mat-card-title>Información del pedido</mat-card-title>
             </mat-card-header>
@@ -170,7 +172,7 @@
             </mat-card-content>
           </mat-card>
       
-          <mat-card class="claim-card">
+          <mat-card class="pedido-card">
             <mat-card-header>
               <mat-card-title>Detalle del Pedido</mat-card-title>
             </mat-card-header>
@@ -199,8 +201,8 @@
       <div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">
         {{message.text}}
       </div>
-
-
+    </div>
+  
 
 
       <br><br> <br> <br><br>

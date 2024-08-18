@@ -15,19 +15,23 @@ export class ProductosComponent {
 
 
   ReturnIndex(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['pages/index']);
   }
+
   Gotoproducts(): void {
-    this.router.navigate(['/productos']);
+    this.router.navigate(['pages/productos']);
   }
+
   Gotoabout(): void {
-    this.router.navigate(['/quienes-somos']);
+    this.router.navigate(['pages/quienes-somos']);
   }
+
   Gotoreview(): void {
-    this.router.navigate(['/resenas']);
+    this.router.navigate(['pages/resenas']);
   }
+
   Gotopedido(): void {
-    this.router.navigate(['/pedidos']);
+    this.router.navigate(['pages/pedidos']);
   }
 
   productos = [

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { PedidoRegister } from './pedidos-model';
 import Swal from "sweetalert2"
-import { UnsubscribeOnDestroyAdapter } from '../shared/sub/UnsubscribeOnDestroyAdapter';
-import { environment } from '../environments/environments.developments';
+import { UnsubscribeOnDestroyAdapter } from '../../../shared/sub/UnsubscribeOnDestroyAdapter';
+import { environment } from '../../../environments/environments.developments';
 import {  catchError, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'

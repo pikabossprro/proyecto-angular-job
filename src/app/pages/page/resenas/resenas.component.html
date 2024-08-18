@@ -7,10 +7,10 @@
   
   <br><br> <br> <br><br>
     <ul class="menu">
-      <li><a (click)="returnIndex()">Inicio</a></li>
-      <li><a (click)="gotoProducts()">Productos</a></li>
-      <li><a (click)="gotoAbout()">Quienes Somos</a></li>
-      <li><a (click)="gotoReviews()">Reseñas</a></li>
+      <li><a (click)="ReturnIndex()">Inicio</a></li>
+      <li><a (click)="Gotoproducts()">Productos</a></li>
+      <li><a (click)="Gotoabout()">Quienes Somos</a></li>
+      <li><a (click)="Gotoreview()">Reseñas</a></li>
       <li><a (click)=" Gotopedido()">pedidos</a></li>
       <li class="slider"></li>
     </ul>
@@ -20,7 +20,7 @@
     </div>
     
     <form [formGroup]="resenaForm" (ngSubmit)="saveResena()">
-        <mat-card class="claim-card">
+        <mat-card class="resena-card">
           <mat-card-content>
             
               <h1><strong> Dejanos tu reseña</strong></h1>
@@ -28,7 +28,7 @@
           
           </mat-card-content>
         </mat-card>
-      <mat-card class="claim-card">
+      <mat-card class="resena-card">
         <mat-card-header>
           <mat-card-title>Información del Cliente</mat-card-title>
         </mat-card-header>
@@ -68,7 +68,7 @@
           </div>
         </mat-card-content>
       </mat-card>
-      <mat-card class="claim-card">
+      <mat-card class="resena-card">
         <mat-card-header>
           <mat-card-title>Dejanos un comentario</mat-card-title>
         </mat-card-header>
@@ -122,7 +122,7 @@
     </div>
     
     <form [formGroup]="resenaForm" (ngSubmit)="updateResena()">
-        <mat-card class="claim-card">
+        <mat-card class="resena-card">
           <mat-card-content>
             <div class="row">
               
@@ -133,7 +133,7 @@
           </mat-card-content>
         </mat-card>
         
-        <mat-card class="claim-card">
+        <mat-card class="resena-card">
           <mat-card-header>
             <mat-card-title>Información de la Reseña</mat-card-title>
           </mat-card-header>
@@ -141,7 +141,7 @@
           <mat-card-content>
             <div class="col">
               <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Título</mat-label>
+                <mat-label>Nombres</mat-label>
                 <input matInput placeholder="Título" formControlName="title">
                 <mat-error *ngIf="resenaForm.controls['title'].hasError('required')">
                   El título es <strong>requerido</strong>
@@ -151,27 +151,27 @@
     
             <div class="col">
               <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Precio</mat-label>
+                <mat-label>calificacion del 1-5</mat-label>
                 <input matInput placeholder="Precio" formControlName="price" type="number">
                 <mat-error *ngIf="resenaForm.controls['price'].hasError('required')">
-                  El precio es <strong>requerido</strong>
+                  recomendacion es <strong>requerido</strong>
                 </mat-error>
               </mat-form-field>
             </div>
             
             <div class="col">
               <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Id Categoría</mat-label>
+                <mat-label>calificacion del 1-5</mat-label>
                 <input matInput type="number" placeholder="Id Categoría" formControlName="categoryId">
                 <mat-error *ngIf="resenaForm.controls['categoryId'].hasError('required')">
-                  El id de la categoría es <strong>requerido</strong>
+                  recomendacion es<strong>requerido</strong>
                 </mat-error>
               </mat-form-field>
             </div>
           </mat-card-content>
         </mat-card>
     
-        <mat-card class="claim-card">
+        <mat-card class="resena-card">
           <mat-card-header>
             <mat-card-title>Detalle de la Reseña</mat-card-title>
           </mat-card-header>
@@ -183,7 +183,7 @@
                   <mat-label>Descripción</mat-label>
                   <textarea matInput placeholder="Descripción" formControlName="description"></textarea>
                   <mat-error *ngIf="resenaForm.controls['description'].hasError('required')">
-                    La descripción es <strong>requerida</strong>
+                    La experiencia es <strong>requerida</strong>
                   </mat-error>
                 </mat-form-field>
               </div>

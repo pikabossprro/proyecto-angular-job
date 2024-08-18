@@ -133,23 +133,24 @@ export class ResenasComponent {
   
   
 
- 
-  returnIndex(): void {
-    this.router.navigate(['']);
-  }
+    
+    ReturnIndex(): void {
+      this.router.navigate(['pages/index']);
+    }
 
-  gotoProducts(): void {
-    this.router.navigate(['/productos']);
-  }
+    Gotoproducts(): void {
+      this.router.navigate(['pages/productos']);
+    }
 
-  gotoAbout(): void {
-    this.router.navigate(['/quienes-somos']);
-  }
+    Gotoabout(): void {
+      this.router.navigate(['pages/quienes-somos']);
+    }
 
-  gotoReviews(): void {
-    this.router.navigate(['/resenas']);
-  }
-  Gotopedido(): void {
-    this.router.navigate(['/pedidos']);
-  }
+    Gotoreview(): void {
+      this.router.navigate(['pages/resenas']);
+    }
+
+    Gotopedido(): void {
+      this.router.navigate(['pages/pedidos']);
+    }
 }
